@@ -1,8 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.scss'
-import App from './App.jsx'
 import * as serviceWorker from './serviceWorker'
+
+import client from './libs/client'
+
+import Login from './Login'
+import Main from './Main'
+import makeApp from './make-App.jsx'
+
+const App = makeApp({ client, Login, Main })
 
 ReactDOM.render(<App />, document.getElementById('root'))
 

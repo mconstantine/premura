@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
-import client from './libs/client'
-import Login from './Login'
-import Main from './Main'
 
-export default class App extends Component {
+export default ({ client, Login, Main }) => class App extends Component {
   constructor(props) {
     super(props)
     this.state = { session: null, errors: [] }
