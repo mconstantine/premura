@@ -14,6 +14,13 @@ app.on('ready', () => {
       { role: 'quit' }
     ]
   }, {
+    label: 'Edit',
+    submenu: [
+      { role: 'cut' },
+      { role: 'copy' },
+      { role: 'paste' }
+    ]
+  }, {
     label: 'View',
     submenu: [
       { role: 'reload' },
