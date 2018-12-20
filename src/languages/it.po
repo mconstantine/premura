@@ -1,0 +1,158 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Premura Server\n"
+"POT-Creation-Date: 2018-12-20 17:53+0100\n"
+"PO-Revision-Date: 2018-12-20 17:53+0100\n"
+"Last-Translator: Mauro Constantinescu <mconst@mconst.it>\n"
+"Language-Team: \n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: gettext, dgettext:2, dcgettext:2, ngettext:1,2, "
+"dngettext:2,3, dcngettext:2,3, gettext_noop, and pgettext:1c,2, "
+"dpgettext:2c,3, dcpgettext:2c,3, npgettext:1c,2,3, dnpgettext:2c,3,4, "
+"dcnpgettext:2c,3,4\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: node_modules\n"
+
+#: Login.js:52
+msgid "Email:"
+msgstr "Email:"
+
+#: Login.js:62
+msgid "Password:"
+msgstr "Password:"
+
+#: Login.js:72
+msgid "Language:"
+msgstr "Lingua:"
+
+#: Login.js:86
+msgid "Login"
+msgstr "Login"
+
+#~ msgid "Activity not found"
+#~ msgstr "Attività non trovata"
+
+#~ msgid "You can't assign activities to other users"
+#~ msgstr "Non puoi assegnare attività ad altri utenti"
+
+#~ msgid "You can't access this project"
+#~ msgstr "Non puoi accedere a questo progetto"
+
+#~ msgid "User not found"
+#~ msgstr "Utente non trovato"
+
+#~ msgid "%s cannot access this project"
+#~ msgstr "%s non può accedere a questo progetto"
+
+#~ msgid "Project not found"
+#~ msgstr "Progetto non trovato"
+
+#~ msgid "Recipient not found"
+#~ msgstr "Destinatario non trovato"
+
+#~ msgid "Recipient can't access this project"
+#~ msgstr "Il destinatario non può accedere a questo progetto"
+
+#~ msgid "\"time to\" should be later than \"time from\""
+#~ msgstr "La fine dell’attività deve venire dopo l’inizio"
+
+#~ msgid "An activity with this time range is already assigned"
+#~ msgstr ""
+#~ "Un’attività durante questo intervallo di tempo è già stata assegnata"
+
+#~ msgid "There is no budget left for this project"
+#~ msgstr "Non è rimasto budget disponibile per questo progetto"
+
+#~ msgid "Invalid activity ID"
+#~ msgstr "ID dell’attività non valido"
+
+#~ msgid "You can't delete other user's activities"
+#~ msgstr "Non puoi eliminare attività di altri utenti"
+
+#~ msgid "You can't edit other user's activities"
+#~ msgstr "Non puoi modificare attività di altri utenti"
+
+#~ msgid "Category not found"
+#~ msgstr "Categoria non trovata"
+
+#~ msgid "Invalid category ID"
+#~ msgstr "ID della categoria non valido"
+
+#~ msgid "Term not found"
+#~ msgstr "Termine non trovato"
+
+#~ msgid "Deadlines should be today or in the future"
+#~ msgstr "Le scadenze devono essere oggi o nel futuro"
+
+#~ msgid "User not active"
+#~ msgstr "Utente non attivo"
+
+#~ msgid "Message not found"
+#~ msgstr "Messaggio non trovato"
+
+#~ msgid "You can't delete another user's message"
+#~ msgstr "Non puoi eliminare messaggi di altri utenti"
+
+#~ msgid "Your message is not part of this project's conversation"
+#~ msgstr ""
+#~ "Il tuo messaggio non fa parte della conversazione di questo progetto"
+
+#~ msgid "Invalid project ID"
+#~ msgstr "ID del progetto non valido"
+
+#~ msgid "Destination project not found"
+#~ msgstr "Progetto di destinazione non trovato"
+
+#~ msgid "You can't access the destination project"
+#~ msgstr "Non puoi accedere al progetto di destinazione"
+
+#~ msgid "A project can't be assigned to no one"
+#~ msgstr "Un progetto non può non essere assegnato a nessuno"
+
+#~ msgid "You can't edit another user's message"
+#~ msgstr "Non puoi modificare messaggi di altri utenti"
+
+#~ msgid "People budgets don't add up"
+#~ msgstr "I budget delle persone non quadrano"
+
+#~ msgid "You can't register a user with a role higher than yours"
+#~ msgstr "Non puoi registrare un utente con un ruolo più alto del tuo"
+
+#~ msgid "A user is registered with the same e-mail address"
+#~ msgstr "C’è un utente registrato con lo stesso indirizzo e-mail"
+
+#~ msgid "Invalid user ID"
+#~ msgstr "ID dell’utente non valido"
+
+#~ msgid "Only a master user can delete a user"
+#~ msgstr "Solo un utente master può eliminare un utente"
+
+#~ msgid "Invalid password"
+#~ msgstr "Password non valida"
+
+#~ msgid "Only a user with a higher role can change another user's role"
+#~ msgstr ""
+#~ "Solo un utente con un ruolo più alto può cambiare il ruolo di un altro "
+#~ "utente"
+
+#~ msgid "You can change only your own language"
+#~ msgstr "Puoi cambiare solo la tua lingua"
+
+#~ msgid "You can change only your own e-mail address"
+#~ msgstr "Puoi cambiare solo il tuo indirizzo e-mail"
+
+#~ msgid "You can change only your own password"
+#~ msgstr "Puoi cambiare solo la tua password"
+
+#~ msgid "Only master users can change the active state"
+#~ msgstr "Solo un utente master può cambiare uno stato di attività"
+
+#~ msgid "You can change this information only for your own profile"
+#~ msgstr "Puoi cambiare questa informazione solo per il tuo profilo"

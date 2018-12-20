@@ -1,8 +1,17 @@
 import React from 'react'
-import Login from './Login'
-import Enzyme, { shallow } from 'enzyme'
+import makeLogin from './make-Login'
+import Enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 import testComponent from './libs/test-component'
+
+const PremuraContext = React.createContext({
+  gt: {
+    setLocale: () => {},
+    gettext: () => {}
+  }
+})
+
+const Login = makeLogin({ PremuraContext })
 
 Enzyme.configure({ adapter: new Adapter() })
 
@@ -29,7 +38,7 @@ it('Should return data on submit', async () => {
 
 it('Should render errors', async () => {
   const errors = ['Error one', 'Error two']
-  const instance = shallow(<Login errors={errors} />)
+  const instance = mount(<Login errors={errors} />)
   const elErrors = instance.find('.p-LoginErrors > ul')
 
   expect(elErrors.children().length).toBe(2)

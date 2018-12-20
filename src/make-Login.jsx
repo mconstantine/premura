@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import langs from './libs/langs'
 
-export default class Login extends Component {
+export default ({ PremuraContext }) => class Login extends Component {
+  static contextType = PremuraContext
+
   constructor(props) {
     super(props)
 
@@ -26,6 +28,7 @@ export default class Login extends Component {
   }
 
   onLangChange(e) {
+    this.context.gt.setLocale(e.target.value)
     this.setState({ lang: e.target.value })
   }
 
@@ -40,11 +43,13 @@ export default class Login extends Component {
   }
 
   render() {
+    const gt = this.context.gt
+
     return (
       <div className="p-Login">
         <form onSubmit={this.onSubmit}>
           <label htmlFor="email">
-            <span>Email:</span>
+            <span>{gt.gettext('Email:')}</span>
             <input
               type="email"
               value={this.state.email}
@@ -54,7 +59,7 @@ export default class Login extends Component {
           </label>
 
           <label htmlFor="password">
-            <span>Password:</span>
+            <span>{gt.gettext('Password:')}</span>
             <input
               type="password"
               value={this.state.password}
@@ -64,7 +69,7 @@ export default class Login extends Component {
           </label>
 
           <label htmlFor="lang">
-            <span>Language:</span>
+            <span>{gt.gettext('Language:')}</span>
             <select
               value={this.state.lang}
               onChange={this.onLangChange}
@@ -78,16 +83,16 @@ export default class Login extends Component {
             </select>
           </label>
 
-          <input type="submit" value="Login" />
-        </form>
+          <input type="submit" value={gt.gettext('Login')} />
 
-        <div className="p-LoginErrors">
-          <ul>
-            {this.props.errors && this.props.errors.map((error, index) => (
-              <li key={index}>{error}</li>
-            ))}
-          </ul>
-        </div>
+          <div className="p-LoginErrors">
+            <ul>
+              {this.props.errors && this.props.errors.map((error, index) => (
+                <li key={index}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        </form>
       </div>
     )
   }

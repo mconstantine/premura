@@ -13,9 +13,7 @@
   },
   "private": true,
   "dependencies": {
-    "electron-is-dev": "^1.0.1",
-    "node-sass": "^4.11.0",
-    "react-router-dom": "^4.3.1"
+    "electron-is-dev": "^1.0.1"
   },
   "scripts": {
     "dev": "react-scripts start",
@@ -23,7 +21,8 @@
     "start": "concurrently \"cross-env BROWSER=none react-scripts start\" \"wait-on http://localhost:3000 && electron .\"",
     "prepack": "react-scripts build",
     "pack": "build -c.extraMetadata.main=build/main.js",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "translate": "node ./translate.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,8 +41,12 @@
     "electron-devtools-installer": "^2.2.4",
     "enzyme": "^3.8.0",
     "enzyme-adapter-react-16": "^1.7.1",
+    "gettext-parser": "^3.1.0",
+    "node-gettext": "^2.0.0",
+    "node-sass": "^4.11.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
+    "react-router-dom": "^4.3.1",
     "react-scripts": "2.0.5",
     "wait-on": "^3.1.0"
   },

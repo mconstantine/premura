@@ -5,10 +5,14 @@ import * as serviceWorker from './serviceWorker'
 
 import client from './libs/client'
 
-import Login from './Login'
-import Main from './Main'
-import makeApp from './make-App.jsx'
+import makeApp, { PremuraContext } from './make-App.jsx'
+import makeLogin from './make-Login'
+import makeMain from './make-Main'
+import makeCalendar from './pages/make-Calendar'
 
+const Login = makeLogin({ PremuraContext })
+const Calendar = makeCalendar({ client })
+const Main = makeMain({ Calendar })
 const App = makeApp({ client, Login, Main })
 
 ReactDOM.render(<App />, document.getElementById('root'))

@@ -1,9 +1,26 @@
 import React, { Component } from 'react'
+import Gettext from 'node-gettext'
+import translationsIt from './languages/it.json'
+import translationsEn from './languages/en.json'
+
+export const PremuraContext = React.createContext()
 
 export default ({ client, Login, Main }) => class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { session: null, errors: [] }
+
+    const gt = new Gettext()
+
+    gt.addTranslations('it', 'premura', translationsIt)
+    gt.addTranslations('en', 'premura', translationsEn)
+    gt.setTextDomain('premura')
+    gt.setLocale('it')
+
+    this.state = {
+      session: null,
+      loginErrors: [],
+      gt
+    }
   }
 
   async componentDidMount() {
@@ -23,7 +40,7 @@ export default ({ client, Login, Main }) => class App extends Component {
 
     if (response.status !== 200) {
       if (response.content.errors && response.content.errors.length) {
-        this.setState({ errors: response.content.errors.map(({ msg }) => msg) })
+        this.setState({ loginErrors: response.content.errors.map(({ msg }) => msg) })
       }
 
       return
@@ -43,14 +60,19 @@ export default ({ client, Login, Main }) => class App extends Component {
   }
 
   render() {
-    return this.state.session ? (
-      <Main session={this.state.session} onLogout={() => this.logout()} />
-    ) : (
-      <Login
-        session={this.state.session}
-        errors={this.state.errors}
-        onSubmit={data => this.login(data)}
-      />
+    return (
+      <PremuraContext.Provider value={{ session: this.state.session, gt: this.state.gt }}>
+      {
+        this.state.session ? (
+          <Main onLogout={() => this.logout()} />
+        ) : (
+          <Login
+            errors={this.state.loginErrors}
+            onSubmit={data => this.login(data)}
+          />
+        )
+      }
+      </PremuraContext.Provider>
     )
   }
 }
