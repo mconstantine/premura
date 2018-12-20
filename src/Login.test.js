@@ -6,11 +6,11 @@ import testComponent from './libs/test-component'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-it('renders without crashing', async () => {
+it('Should render without crashing', async () => {
   await testComponent(<Login />)
 })
 
-it('Returns the data on submit', async () => {
+it('Should return data on submit', async () => {
   const verify = jest.fn()
 
   await testComponent(<Login onSubmit={verify} />, instance => {
