@@ -14,7 +14,7 @@ export default class Login extends Component {
     this.onEmailChange = this.onEmailChange.bind(this)
     this.onPasswordChange = this.onPasswordChange.bind(this)
     this.onLangChange = this.onLangChange.bind(this)
-    this.login = this.login.bind(this)
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   onEmailChange(e) {
@@ -29,7 +29,7 @@ export default class Login extends Component {
     this.setState({ lang: e.target.value })
   }
 
-  login(e) {
+  onSubmit(e) {
     e.preventDefault()
 
     this.props.onSubmit && this.props.onSubmit({
@@ -42,7 +42,7 @@ export default class Login extends Component {
   render() {
     return (
       <div className="p-Login">
-        <form onSubmit={this.login}>
+        <form onSubmit={this.onSubmit}>
           <label htmlFor="email">
             <span>Email:</span>
             <input
@@ -83,7 +83,7 @@ export default class Login extends Component {
 
         <div className="p-LoginErrors">
           <ul>
-            {this.props.errors.map((error, index) => (
+            {this.props.errors && this.props.errors.map((error, index) => (
               <li key={index}>{error}</li>
             ))}
           </ul>
