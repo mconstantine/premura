@@ -1,0 +1,28 @@
+@import './variables';
+
+.p-Main-header {
+  width: 90vw;
+  max-width: $max-with;
+  margin-left: auto;
+  margin-right: auto;
+
+  * + * {
+    margin-top: 0;
+  }
+
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
