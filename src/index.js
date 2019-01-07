@@ -8,7 +8,7 @@ import client from './libs/client'
 import makeApp, { PremuraContext } from './make-App'
 import makeLogin from './make-Login'
 import makeMain from './make-Main'
-import makePageCalendar from './pages/make-PageCalendar'
+import makePageCalendar from './pages/Calendar/make-PageCalendar'
 
 const Login = makeLogin({ PremuraContext })
 const PageCalendar = makePageCalendar({ client })

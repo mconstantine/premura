@@ -1,6 +1,6 @@
 import printf from 'printf'
 import React, { Component } from 'react'
-import { PremuraContext } from '../make-App'
+import { PremuraContext } from '../../make-App'
 import Calendar from 'react-calendar'
 import iconArrowLeft from './icon-arrow-left.svg'
 import iconArrowRight from './icon-arrow-right.svg'
@@ -172,7 +172,7 @@ export default ({ client }) => class PageCalendar extends Component {
       )
     }
 
-    const usersSelect = this.state.currentUser ? (
+    const usersSelect = this.state.currentUser && this.state.users.length ? (
       <select value={this.state.currentUser._id} onChange={this.onCurrentUserChange}>
         {this.state.users.map(user => (
           <option key={user._id} value={user._id}>{user.name}</option>
