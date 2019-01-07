@@ -52,3 +52,35 @@
     visibility: hidden;
   }
 }
+
+.p-PageCalendar-main-table {
+  width: 90vw;
+  max-width: $max-with;
+  margin-top: 2em;
+  margin-bottom: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  border-collapse: collapse;
+
+  th, td {
+    padding-top: 0;
+    padding-left: 1em;
+    padding-right: 1em;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+}
+
+.p-PageCalendar-main-table-cell {
+  background-color: #ddd;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.p-PageCalendar-main-table-placeholder {
+  cursor: pointer;
+
+  &:hover {
+    background-color: #afa;
+  }
+}

@@ -2,6 +2,7 @@ import printf from 'printf'
 import React, { Component } from 'react'
 import { PremuraContext } from '../../make-App'
 import Calendar from 'react-calendar'
+import CalendarTHead from './CalendarTHead'
 import iconArrowLeft from './icon-arrow-left.svg'
 import iconArrowRight from './icon-arrow-right.svg'
 import iconCalendar from './icon-calendar.svg'
@@ -16,6 +17,8 @@ should go to next week (get activities)
 should get current user's activities on instantiation
 should switch user (get activities)
 should go to date (get activities)
+should show activities inti the table
+should turn activities duration into rowSpan
 */
 
 export default ({ client }) => class PageCalendar extends Component {
@@ -180,46 +183,84 @@ export default ({ client }) => class PageCalendar extends Component {
       </select>
     ) : null
 
-    let table
+    let thead = null, tbody = []
 
     if (this.state.from && this.state.to) {
-      // This creates an empty space instead of the day name
-      const times = [(
-        <div key="0" />
-      )]
+      thead = (<CalendarTHead from={this.state.from} lang={this.context.session.lang}></CalendarTHead>)
 
-      for (let i = 0; i < 24; i++) {
-        const date = new Date(this.state.from)
-        date.setHours(i)
+      const isSameDay = (d1, d2) =>
+        d1.getFullYear() === d2.getFullYear() &&
+        d1.getMonth() === d2.getMonth() &&
+        d1.getDate() === d2.getDate()
+      const timezoneOffset = this.state.from.getTimezoneOffset() / 60
 
-        times.push((
-          <div key={date.getTime()}>
-            {date.toLocaleString(this.context.session.lang, {
+      for (let time = timezoneOffset; time < 24 + timezoneOffset; time++) {
+        let tds = [(
+          <td key={time}>{
+            new Date(
+              this.state.from.getTime() +
+              1000 * 60 * 60 * time
+            ).toLocaleString(this.context.session.lang, {
               hour: '2-digit',
               minute: '2-digit'
-            })}
-          </div>
-        ))
+            })
+          }</td>
+        )]
+
+        for (let day = 0; day < 7; day++) {
+          // Start and end of the day
+          const from = new Date(
+            this.state.from.getTime() +
+            1000 * 60 * 60 * 24 * day +
+            1000 * 60 * 60 * time
+          )
+          const to = new Date(from.getTime() + 1000 * 60 * 60)
+
+          const activities = this.state.activities
+          .map(a => [a, new Date(a.timeFrom), new Date(a.timeTo)])
+          .filter(([, timeFrom, timeTo]) => {
+            // Filters today's activities
+            return (isSameDay(timeFrom, from) || isSameDay(timeTo, to)) &&
+              (timeFrom.getTime() <= from.getTime() && timeTo.getTime() >= to.getTime())
+          })
+
+          if (activities.length) {
+            activities.forEach(([a, timeFrom, timeTo]) => {
+              // Since we use rowSpan for activities that take more than one hour, we need
+              // to print nothing if there is an activity for this hour but it started before
+              const isStarting = timeFrom.getTime() === from.getTime()
+
+              if (!isStarting) {
+                return
+              }
+
+              const duration = Math.floor((timeTo.getTime() - timeFrom.getTime()) / (1000 * 60 * 60))
+
+              tds.push(
+                <td
+                  key={time.toString() + day.toString()}
+                  rowSpan={duration}
+                  className="p-PageCalendar-main-table-cell"
+                >{
+                  <h4>{a.title}</h4>
+                }</td>
+              )
+            })
+          } else {
+            // No activities for this hour
+            tds.push(
+              <td
+                key={time.toString() + day.toString()}
+                className="p-PageCalendar-main-table-placeholder"
+              />
+            )
+          }
+        }
+
+        tbody.push(<tr key={time}>{tds}</tr>)
       }
 
-      table = [(
-        <div key="hours" className="p-PageCalendar-column hours">
-          {times}
-        </div>
-      )]
-
-      for (let i = 0; i < 7; i++) {
-        const date = new Date(this.state.from.getTime() + 1000 * 60 * 60 * 24 * i)
-        let dayName = date.toLocaleString(this.context.session.lang, { weekday: 'long' })
-        dayName = dayName.substring(0, 1).toUpperCase() + dayName.substring(1)
-
-        table.push((
-          <div key={i} className="p-PageCalendar-column">
-            <div>{dayName}</div>
-            {/* TODO: put activities here */}
-          </div>
-        ))
-      }
+      tbody = (<tbody>{tbody}</tbody>)
     }
 
     return (
@@ -245,7 +286,10 @@ export default ({ client }) => class PageCalendar extends Component {
           </div>
         </header>
         <main className="p-PageCalendar-main">
-          {table}
+          <table className="p-PageCalendar-main-table">
+            {thead}
+            {tbody}
+          </table>
         </main>
       </div>
     )
