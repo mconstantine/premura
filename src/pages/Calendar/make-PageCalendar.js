@@ -1,8 +1,6 @@
 import printf from 'printf'
 import React, { Component } from 'react'
 import { PremuraContext } from '../../make-App'
-import Calendar from 'react-calendar'
-import CalendarTHead from './CalendarTHead'
 import iconArrowLeft from './icon-arrow-left.svg'
 import iconArrowRight from './icon-arrow-right.svg'
 import iconCalendar from './icon-calendar.svg'
@@ -17,18 +15,17 @@ should go to next week (get activities)
 should get current user's activities on instantiation
 should switch user (get activities)
 should go to date (get activities)
-should show activities inti the table
+should show activities into the table
 should turn activities duration into rowSpan
 */
 
-export default ({ client }) => class PageCalendar extends Component {
+export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCalendar extends Component {
   static contextType = PremuraContext
 
   constructor(props) {
     super(props)
 
     this.state = {
-      users: [],
       currentUser: null,
       currentDate: new Date(),
       from: null,
@@ -51,10 +48,8 @@ export default ({ client }) => class PageCalendar extends Component {
   async componentDidMount() {
     const [from, to] = this.getWeekBounds(this.state.currentDate)
     const activities = await this.getActivities(this.context.session._id, from, to)
-    const users = await client.get('/users/')
 
     this.setState({
-      users: users.content,
       currentUser: this.context.session,
       from,
       to,
@@ -87,13 +82,7 @@ export default ({ client }) => class PageCalendar extends Component {
     return [monday, sunday]
   }
 
-  async onCurrentUserChange(e) {
-    const user = this.state.users.find(({ _id }) => e.target.value === _id)
-
-    if (!user) {
-      return
-    }
-
+  async onCurrentUserChange(user) {
     const activities = await this.getActivities(user._id, this.state.from, this.state.to)
 
     this.setState({
@@ -175,94 +164,6 @@ export default ({ client }) => class PageCalendar extends Component {
       )
     }
 
-    const usersSelect = this.state.currentUser && this.state.users.length ? (
-      <select value={this.state.currentUser._id} onChange={this.onCurrentUserChange}>
-        {this.state.users.map(user => (
-          <option key={user._id} value={user._id}>{user.name}</option>
-        ))}
-      </select>
-    ) : null
-
-    let thead = null, tbody = []
-
-    if (this.state.from && this.state.to) {
-      thead = (<CalendarTHead from={this.state.from} lang={this.context.session.lang}></CalendarTHead>)
-
-      const isSameDay = (d1, d2) =>
-        d1.getFullYear() === d2.getFullYear() &&
-        d1.getMonth() === d2.getMonth() &&
-        d1.getDate() === d2.getDate()
-      const timezoneOffset = this.state.from.getTimezoneOffset() / 60
-
-      for (let time = timezoneOffset; time < 24 + timezoneOffset; time++) {
-        let tds = [(
-          <td key={time}>{
-            new Date(
-              this.state.from.getTime() +
-              1000 * 60 * 60 * time
-            ).toLocaleString(this.context.session.lang, {
-              hour: '2-digit',
-              minute: '2-digit'
-            })
-          }</td>
-        )]
-
-        for (let day = 0; day < 7; day++) {
-          // Start and end of the day
-          const from = new Date(
-            this.state.from.getTime() +
-            1000 * 60 * 60 * 24 * day +
-            1000 * 60 * 60 * time
-          )
-          const to = new Date(from.getTime() + 1000 * 60 * 60)
-
-          const activities = this.state.activities
-          .map(a => [a, new Date(a.timeFrom), new Date(a.timeTo)])
-          .filter(([, timeFrom, timeTo]) => {
-            // Filters today's activities
-            return (isSameDay(timeFrom, from) || isSameDay(timeTo, to)) &&
-              (timeFrom.getTime() <= from.getTime() && timeTo.getTime() >= to.getTime())
-          })
-
-          if (activities.length) {
-            activities.forEach(([a, timeFrom, timeTo]) => {
-              // Since we use rowSpan for activities that take more than one hour, we need
-              // to print nothing if there is an activity for this hour but it started before
-              const isStarting = timeFrom.getTime() === from.getTime()
-
-              if (!isStarting) {
-                return
-              }
-
-              const duration = Math.floor((timeTo.getTime() - timeFrom.getTime()) / (1000 * 60 * 60))
-
-              tds.push(
-                <td
-                  key={time.toString() + day.toString()}
-                  rowSpan={duration}
-                  className="p-PageCalendar-main-table-cell"
-                >{
-                  <h4>{a.title}</h4>
-                }</td>
-              )
-            })
-          } else {
-            // No activities for this hour
-            tds.push(
-              <td
-                key={time.toString() + day.toString()}
-                className="p-PageCalendar-main-table-placeholder"
-              />
-            )
-          }
-        }
-
-        tbody.push(<tr key={time}>{tds}</tr>)
-      }
-
-      tbody = (<tbody>{tbody}</tbody>)
-    }
-
     return (
       <div className="p-PageCalendar" ref={this.elRootRef}>
         <header className="p-PageCalendar-header">
@@ -281,15 +182,24 @@ export default ({ client }) => class PageCalendar extends Component {
               value={this.state.currentDate}
               onChange={this.goToDate}
             />
-            {usersSelect}
+            <UserSelect
+              currentUser={this.state.currentUser}
+              onChange={this.onCurrentUserChange}
+            />
             <img src={iconPeople} alt="People"/>
           </div>
         </header>
         <main className="p-PageCalendar-main">
-          <table className="p-PageCalendar-main-table">
-            {thead}
-            {tbody}
-          </table>
+          {
+            this.state.from && this.state.to ? (
+              <CalendarTable
+                className="p-PageCalendar-main-table"
+                from={this.state.from}
+                activities={this.state.activities}
+                lang={this.context.session.lang}
+              />
+            ) : null
+          }
         </main>
       </div>
     )
