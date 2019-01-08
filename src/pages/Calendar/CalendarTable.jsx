@@ -77,6 +77,7 @@ export default props => {
               key={time.toString() + day.toString()}
               rowSpan={duration}
               className="p-PageCalendar-main-table-cell"
+              onClick={() => props.onEditActivity && props.onEditActivity(a)}
             >{
               <h4>{a.title}</h4>
             }</td>
@@ -88,6 +89,7 @@ export default props => {
           <td
             key={time.toString() + day.toString()}
             className="p-PageCalendar-main-table-placeholder"
+            onClick={() => props.onCreateActivity && props.onCreateActivity(from)}
           />
         )
       }

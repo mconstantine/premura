@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import langs from './libs/langs'
+import langs from '../../libs/langs'
 
 export default ({ PremuraContext }) => class Login extends Component {
   static contextType = PremuraContext
@@ -51,6 +51,7 @@ export default ({ PremuraContext }) => class Login extends Component {
           <label htmlFor="email">
             <span>{gt.gettext('Email:')}</span>
             <input
+              id="email"
               type="email"
               value={this.state.email}
               onChange={this.onEmailChange}
@@ -61,6 +62,7 @@ export default ({ PremuraContext }) => class Login extends Component {
           <label htmlFor="password">
             <span>{gt.gettext('Password:')}</span>
             <input
+              id="password"
               type="password"
               value={this.state.password}
               onChange={this.onPasswordChange}
@@ -71,6 +73,7 @@ export default ({ PremuraContext }) => class Login extends Component {
           <label htmlFor="lang">
             <span>{gt.gettext('Language:')}</span>
             <select
+              id="lang"
               value={this.state.lang}
               onChange={this.onLangChange}
               required
