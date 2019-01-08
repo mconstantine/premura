@@ -30,12 +30,27 @@ export default ({ client }) => class UserSelect extends Component {
   }
 
   render() {
-    return this.props.currentUser ? (
-      <select value={this.props.currentUser._id} onChange={this.onChange}>
-       {this.state.users.map(user => (
-         <option key={user._id} value={user._id}>{user.name}</option>
-       ))}
+    if (!this.props.currentUser) {
+      return null
+    }
+
+    const select = (
+      <select id={this.props.id || null} value={this.props.currentUser._id} onChange={this.onChange}>
+        {this.state.users.map(user => (
+          <option key={user._id} value={user._id}>{user.name}</option>
+        ))}
       </select>
-    ) : null
+    )
+
+    if (this.props.id && this.props.label) {
+      return (
+        <label htmlFor={this.props.id}>
+          <span>{this.props.label}</span>
+          {select}
+        </label>
+      )
+    }
+
+    return select
   }
 }
