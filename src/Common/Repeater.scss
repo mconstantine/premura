@@ -1,0 +1,28 @@
+@import '../variables';
+
+.p-Repeater {
+  &.error {
+    > p {
+      color: $red;
+    }
+  }
+}
+
+.p-Repeater-item {
+  display: flex;
+  align-items: center;
+
+  > * + * {
+    margin-top: 0;
+    margin-left: 1em;
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+  }
+}

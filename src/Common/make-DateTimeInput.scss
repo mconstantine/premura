@@ -1,0 +1,16 @@
+@import '../variables';
+
+.p-DateTimeInput {
+  &.error {
+    > label > span, p {
+      color: $red;
+    }
+  }
+
+  .p-Calendar {
+    th, td {
+      height: 32px;
+      line-height: 32px;
+    }
+  }
+}

@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Premura Server\n"
-"POT-Creation-Date: 2018-12-21 16:06+0100\n"
-"PO-Revision-Date: 2018-12-21 16:06+0100\n"
+"POT-Creation-Date: 2019-01-10 15:35+0100\n"
+"PO-Revision-Date: 2019-01-10 15:36+0100\n"
 "Last-Translator: Mauro Constantinescu <mconst@mconst.it>\n"
 "Language-Team: \n"
 "Language: it\n"
@@ -20,30 +20,86 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: node_modules\n"
 
-#: make-Login.js:52
-msgid "Email:"
-msgstr "Email:"
+#: pages/Calendar/make-EditActivityPopup.js:72
+msgid "Title is required"
+msgstr "Il titolo è richiesto"
 
-#: make-Login.js:62
-msgid "Password:"
-msgstr "Password:"
+#: pages/Calendar/make-EditActivityPopup.js:116
+msgid "\"To\" should be later than \"From\""
+msgstr "La fine dell’attività deve venire dopo l’inizio"
 
-#: make-Login.js:72
-msgid "Language:"
-msgstr "Lingua:"
+#: pages/Calendar/make-EditActivityPopup.js:186
+msgid "Title:"
+msgstr "Titolo:"
 
-#: make-Login.js:86
-msgid "Login"
-msgstr "Login"
+#: pages/Calendar/make-EditActivityPopup.js:201
+msgid "Description:"
+msgstr "Descrizione:"
 
-#: pages/make-PageCalendar.js:126
+#: pages/Calendar/make-EditActivityPopup.js:206
+msgid "Project:"
+msgstr "Progetto:"
+
+#: pages/Calendar/make-EditActivityPopup.js:207
+msgid "Set a project"
+msgstr "Imposta un progetto"
+
+#: pages/Calendar/make-EditActivityPopup.js:214
+msgid "Recipient:"
+msgstr "Destinatario:"
+
+#: pages/Calendar/make-EditActivityPopup.js:215
+msgid "Set a recipient"
+msgstr "Imposta un destinatario"
+
+#: pages/Calendar/make-EditActivityPopup.js:223
+msgid "From:"
+msgstr "Da:"
+
+#: pages/Calendar/make-EditActivityPopup.js:230
+msgid "To:"
+msgstr "A:"
+
+#: pages/Calendar/make-EditActivityPopup.js:236
+msgid "People:"
+msgstr "Persone:"
+
+#: pages/Calendar/make-EditActivityPopup.js:241
+msgid "Add a person"
+msgstr "Aggiungi una persona"
+
+#: pages/Calendar/make-EditActivityPopup.js:254
+msgid "Save"
+msgstr "Salva"
+
+#: pages/Calendar/make-EditActivityPopup.js:259
+msgid "Reset"
+msgstr "Reset"
+
+#: pages/Calendar/make-PageCalendar.js:194
 #, javascript-format
 msgid "Week %s"
 msgstr "Settimana %s"
 
-#: pages/make-PageCalendar.js:128
+#: pages/Calendar/make-PageCalendar.js:196
 msgid "%i (%s – %s)"
 msgstr "%i (%s – %s)"
+
+#: pages/Login/make-Login.js:52
+msgid "Email:"
+msgstr "Email:"
+
+#: pages/Login/make-Login.js:63
+msgid "Password:"
+msgstr "Password:"
+
+#: pages/Login/make-Login.js:74
+msgid "Language:"
+msgstr "Lingua:"
+
+#: pages/Login/make-Login.js:89
+msgid "Login"
+msgstr "Login"
 
 #~ msgid "Activity not found"
 #~ msgstr "Attività non trovata"
@@ -63,14 +119,8 @@ msgstr "%i (%s – %s)"
 #~ msgid "Project not found"
 #~ msgstr "Progetto non trovato"
 
-#~ msgid "Recipient not found"
-#~ msgstr "Destinatario non trovato"
-
 #~ msgid "Recipient can't access this project"
 #~ msgstr "Il destinatario non può accedere a questo progetto"
-
-#~ msgid "\"time to\" should be later than \"time from\""
-#~ msgstr "La fine dell’attività deve venire dopo l’inizio"
 
 #~ msgid "An activity with this time range is already assigned"
 #~ msgstr ""

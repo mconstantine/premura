@@ -1,11 +1,12 @@
 import printf from 'printf'
 import React, { Component } from 'react'
 import { PremuraContext } from '../../make-App'
+import locales from '../../Common/momentLocales'
+import iconCalendar from '../../Common/icon-calendar.svg'
 import iconArrowLeft from './icon-arrow-left.svg'
 import iconArrowRight from './icon-arrow-right.svg'
-import iconCalendar from './icon-calendar.svg'
 import iconPeople from './icon-people.svg'
-import './PageCalendar.scss'
+import './make-PageCalendar.scss'
 
 /*
 Tests:
@@ -19,7 +20,9 @@ should show activities into the table
 should turn activities duration into rowSpan
 */
 
-export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCalendar extends Component {
+export default ({
+  client, ReactDateTime, UserSelect, CalendarTable, EditActivityPopup
+}) => class PageCalendar extends Component {
   static contextType = PremuraContext
 
   constructor(props) {
@@ -31,7 +34,9 @@ export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCa
       from: null,
       to: null,
       activities: [],
-      shouldShowCalendar: false
+      shouldShowCalendar: false,
+      shouldShowEditingActivityPopup: false,
+      currentEditingActivity: null
     }
 
     this.elRootRef = React.createRef()
@@ -43,6 +48,9 @@ export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCa
     this.hideCalendar = this.hideCalendar.bind(this)
     this.toggleCalendar = this.toggleCalendar.bind(this)
     this.goToDate = this.goToDate.bind(this)
+    this.createActivity = this.createActivity.bind(this)
+    this.editActivity = this.editActivity.bind(this)
+    this.onCloseEditingActivityPopup = this.onCloseEditingActivityPopup.bind(this)
   }
 
   async componentDidMount() {
@@ -59,7 +67,13 @@ export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCa
     this.elRootRef.current.addEventListener('click',
       e => this.state.shouldShowCalendar &&
         !Array.from(e.target.classList).find(
-          className => className.substring(0, 14) === 'react-calendar'
+          className => className === 'p-Calendar-trigger'
+        ) &&
+        !Array.from(e.target.classList).find(
+          className => className.substring(0, 3) === 'rdt'
+        ) &&
+        !Array.from(e.target.parentNode.classList).find(
+          className => className.substring(0, 3) === 'rdt'
         ) &&
         this.hideCalendar()
     )
@@ -128,6 +142,8 @@ export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCa
   }
 
   async goToDate(date) {
+    date = new Date(date)
+
     const [from, to] = this.getWeekBounds(date)
     const activities = await this.getActivities(this.state.currentUser._id, from, to)
 
@@ -135,8 +151,35 @@ export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCa
       currentDate: date,
       from,
       to,
-      activities: activities.content
+      activities: activities.content,
+      shouldShowCalendar: false
     })
+  }
+
+  createActivity(timeFrom) {
+    this.setState({
+      currentEditingActivity: { timeFrom },
+      shouldShowEditingActivityPopup: true
+    })
+  }
+
+  async editActivity(activity) {
+    activity = await client.get(`/activities/${activity._id}/`)
+
+    this.setState({
+      currentEditingActivity: activity.content,
+      shouldShowEditingActivityPopup: true
+    })
+  }
+
+  onCloseEditingActivityPopup() {
+    this.setState({
+      shouldShowEditingActivityPopup: false
+    })
+  }
+
+  setActivity(activity) {
+    // TODO: find activity by ID, add or override
   }
 
   render() {
@@ -173,17 +216,25 @@ export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCa
             <p>{headerTitle}</p>
           </div>
           <div>
-            <img src={iconCalendar} alt="Go to date" onClick={this.toggleCalendar} />
-            <Calendar
-              minDetail="year"
+            <img
+              className="p-Calendar-trigger"
+              src={iconCalendar}
+              alt="Go to date"
+              onClick={this.toggleCalendar}
+            />
+            <ReactDateTime
+              timeFormat={false}
+              input={false}
               className={
-                'p-PageCalendar-calendar ' + (this.state.shouldShowCalendar ? 'shown' : 'hidden')
+                'p-Calendar p-PageCalendar-calendar ' +
+                (this.state.shouldShowCalendar ? 'shown' : 'hidden')
               }
+              locale={locales[this.context.session.lang]}
               value={this.state.currentDate}
               onChange={this.goToDate}
             />
             <UserSelect
-              currentUser={this.state.currentUser}
+              value={this.state.currentUser}
               onChange={this.onCurrentUserChange}
             />
             <img src={iconPeople} alt="People"/>
@@ -197,10 +248,17 @@ export default ({ client, Calendar, UserSelect, CalendarTable }) => class PageCa
                 from={this.state.from}
                 activities={this.state.activities}
                 lang={this.context.session.lang}
+                onCreateActivity={this.createActivity}
+                onEditActivity={this.editActivity}
               />
             ) : null
           }
         </main>
+        <EditActivityPopup
+          visible={this.state.shouldShowEditingActivityPopup}
+          activity={this.state.currentEditingActivity}
+          onClose={this.onCloseEditingActivityPopup}
+        />
       </div>
     )
   }

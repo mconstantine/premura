@@ -32,11 +32,15 @@ label span {
   display: block;
 }
 
+label p {
+  margin-top: 0;
+}
+
 label span + * {
   margin-top: 0.5em;
 }
 
-input, select {
+input, select, textarea {
   width: 100%;
   font-family: inherit;
   font-size: inherit;
@@ -46,6 +50,145 @@ input, select {
   font-weight: inherit;
 }
 
+textarea {
+  resize: none;
+  overflow: auto;
+}
+
+label.error {
+  span, p { color: $red; }
+}
+
 a {
   color: inherit;
+}
+
+.p-errors {
+  color: $red;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+}
+
+.p-Calendar {
+  background-color: #fff;
+  box-sizing: border-box;
+  padding: 1em;
+  border: 1px solid #000;
+
+  * + * {
+    margin-top: 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    min-width: 24px;
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .rdtToday {
+    background-color: #ddd;
+  }
+
+  .rdtActive {
+    background-color: #000;
+    color: #fff;
+  }
+
+  .rdtCounters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .rdtCounter {
+    min-width: 48px;
+  }
+
+  .rdtCount {
+    height: 1em;
+    line-height: 1;
+  }
+}
+
+.p-Dialog {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  background-color: rgba(#000, .75);
+  transition: opacity 400ms ease, visibility 400ms;
+  opacity: 0;
+  visibility: hidden;
+
+  &.visible {
+    transition: opacity 400ms ease;
+    opacity: 1;
+    visibility: visible;
+
+    > div {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  > div {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    background-color: #fff;
+    max-width: 90vw;
+    max-height: 90vh;
+    box-sizing: border-box;
+    padding-top: 1em;
+    padding-right: 48px;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    transition: transform 400ms ease;
+    transform: translate3d(0, 1.85vh, 0);
+
+    > button {
+      appearance: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 32px;
+      border: none;
+      cursor: pointer;
+
+      @media all and (pointer: fine) {
+        outline: none;
+      }
+    }
+
+    > div {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      overflow: auto;
+      margin-top: 1em;
+      margin-bottom: 1em;
+    }
+  }
 }

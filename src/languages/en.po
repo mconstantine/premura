@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Premura\n"
-"POT-Creation-Date: 2018-12-21 16:05+0100\n"
-"PO-Revision-Date: 2018-12-21 16:06+0100\n"
+"POT-Creation-Date: 2019-01-10 15:35+0100\n"
+"PO-Revision-Date: 2019-01-10 15:35+0100\n"
 "Last-Translator: Mauro Constantinescu <mconst@mconst.it>\n"
 "Language-Team: \n"
 "Language: en\n"
@@ -19,27 +19,85 @@ msgstr ""
 "dcnpgettext:2c,3,4\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: make-Login.js:52
-msgid "Email:"
-msgstr "Email:"
+#: pages/Calendar/make-EditActivityPopup.js:72
+msgid "Title is required"
+msgstr "Title is required"
 
-#: make-Login.js:62
-msgid "Password:"
-msgstr "Password:"
+#: pages/Calendar/make-EditActivityPopup.js:116
+msgid "\"To\" should be later than \"From\""
+msgstr "\"To\" should be later than \"From\""
 
-#: make-Login.js:72
-msgid "Language:"
-msgstr "Language:"
+#: pages/Calendar/make-EditActivityPopup.js:186
+msgid "Title:"
+msgstr "Title:"
 
-#: make-Login.js:86
-msgid "Login"
-msgstr "Login"
+#: pages/Calendar/make-EditActivityPopup.js:201
+msgid "Description:"
+msgstr "Description:"
 
-#: pages/make-PageCalendar.js:126
+#: pages/Calendar/make-EditActivityPopup.js:206
+msgid "Project:"
+msgstr "Project:"
+
+#: pages/Calendar/make-EditActivityPopup.js:207
+msgid "Set a project"
+msgstr "Set a project"
+
+#: pages/Calendar/make-EditActivityPopup.js:214
+msgid "Recipient:"
+msgstr "Recipient:"
+
+#: pages/Calendar/make-EditActivityPopup.js:215
+#| msgid "Set a project"
+msgid "Set a recipient"
+msgstr "Set a recipient"
+
+#: pages/Calendar/make-EditActivityPopup.js:223
+msgid "From:"
+msgstr "From:"
+
+#: pages/Calendar/make-EditActivityPopup.js:230
+msgid "To:"
+msgstr "To:"
+
+#: pages/Calendar/make-EditActivityPopup.js:236
+msgid "People:"
+msgstr "People:"
+
+#: pages/Calendar/make-EditActivityPopup.js:241
+#| msgid "Add person"
+msgid "Add a person"
+msgstr "Add a person"
+
+#: pages/Calendar/make-EditActivityPopup.js:254
+msgid "Save"
+msgstr "Save"
+
+#: pages/Calendar/make-EditActivityPopup.js:259
+msgid "Reset"
+msgstr "Reset"
+
+#: pages/Calendar/make-PageCalendar.js:194
 #, javascript-format
 msgid "Week %s"
 msgstr "Week %s"
 
-#: pages/make-PageCalendar.js:128
+#: pages/Calendar/make-PageCalendar.js:196
 msgid "%i (%s – %s)"
 msgstr "%i (%s – %s)"
+
+#: pages/Login/make-Login.js:52
+msgid "Email:"
+msgstr "Email:"
+
+#: pages/Login/make-Login.js:63
+msgid "Password:"
+msgstr "Password:"
+
+#: pages/Login/make-Login.js:74
+msgid "Language:"
+msgstr "Language:"
+
+#: pages/Login/make-Login.js:89
+msgid "Login"
+msgstr "Login"

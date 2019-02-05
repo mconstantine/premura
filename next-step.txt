@@ -1,0 +1,3 @@
+Do Calendar update when an activity is created, updated or deleted
+Activities people repeater does not exclude properly
+Default activities recipient should be current selected user (from the select on the top right)

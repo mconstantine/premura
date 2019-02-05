@@ -88,7 +88,7 @@ export default ({ PremuraContext }) => class Login extends Component {
 
           <input type="submit" value={gt.gettext('Login')} />
 
-          <div className="p-LoginErrors">
+          <div className="p-errors p-LoginErrors">
             <ul>
               {this.props.errors && this.props.errors.map((error, index) => (
                 <li key={index}>{error}</li>
